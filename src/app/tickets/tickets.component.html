@@ -1,0 +1,55 @@
+
+ <div>
+    <p class="login-card-description"></p>
+<span>
+   <input name="submit" routerLink="/createTicket" id="login" class="btn btn-success" type="submit" value="Rase Tickets" style="width: fit-content;">
+</span>
+</div> 
+
+<div class="datatable" style="width:115%">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 style="text-align: center">Gadgets List</h1><br>
+        <div class="row" [hidden]="!deleteMessage">
+
+                  <div class="col-sm-4"></div>
+                  <div class="col-sm-4">
+                          <div class="alert alert-info alert-dismissible">
+                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                  <strong>Gadget Data Deleted</strong>
+                          </div>
+                  </div>
+                  <div class="col-sm-4"></div>
+          </div>           
+      </div>
+  
+    
+    <div class="panel-body">
+        <table  class="table table-hover table-sm" datatable [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"  >
+            <thead class="thead-light">
+                <tr>
+                    <th>Model</th>
+                    <th>SerialNo</th>
+                    <th>McType</th>
+                    <th>Date Of Assign</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr *ngFor="let gadget of gadgets">
+                    <td>{{gadget.model}}</td>
+                    <td>{{gadget.serialNo}}</td>
+                    <td>{{gadget.mcType}}</td>
+                    <td>{{gadget.dateOfAssigne}}</td>
+                    <td>{{gadget.status}}</td>
+                    <td>
+                      <button (click)="updateclient(client.clientId)" class='btn btn-success'
+                      data-toggle="modal" data-target="#myModal">Update</button>
+                    </td>
+                  </tr> 
+            </tbody><br>
+        </table>
+    </div>
+  </div> 
