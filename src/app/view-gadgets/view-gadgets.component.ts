@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GadgetService } from '../services/gadgets-details.service';
 import {FormControl,FormGroup,Validators} from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
 import { GadgetDetails } from '../classes/Gadgets-details';
 import { CreateTicketService } from '../services/createTicket.service';
 import { Router } from '@angular/router';
 import { TicketDetails } from '../classes/Ticket-details';
+import {Location} from '@angular/common'
 
 @Component({
   selector: 'app-view-gadgets',
@@ -15,7 +16,7 @@ import { TicketDetails } from '../classes/Ticket-details';
 export class ViewGadgetsComponent implements OnInit {
   currentUser:string;
   private ticketDetails = new TicketDetails();
-  constructor(private gadgetService: GadgetService,private createTicketService : CreateTicketService, private router : Router) { }
+  constructor(private gadgetService: GadgetService,private createTicketService : CreateTicketService, public router : Router, public location: Location) { }
 
   gadgetsArray: any[] = [];
   dtOptions: DataTables.Settings = {};
@@ -65,12 +66,13 @@ export class ViewGadgetsComponent implements OnInit {
 
         if(statusCode==201){
          alert(response.body.message);
-        // this.router.navigate(['/tickets', response]);
+         this.router.navigate(['/tickets', response]);
          }
 
          else if (statusCode == 200) {
          this.isTicketRaised = true;
          console.log('ticket raised='+this.isTicketRaised);
+         //this.router.navigate(['/tickets']);
          }
         else
         {
@@ -165,4 +167,12 @@ export class ViewGadgetsComponent implements OnInit {
   changeisUpdate(){
     this.isTicketRaised=false;
   }
+
+  refresh(): void {
+    this.router.navigateByUrl("/home", { skipLocationChange: true }).then(() => {
+      console.log(decodeURI(this.location.path()));
+      this.router.navigate([decodeURI(this.location.path())]);
+    });
+  }
+
 }

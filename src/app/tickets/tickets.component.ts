@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
 import { TicketDetails } from '../classes/ticket-details';
 import { TicketsService } from '../services/tickets.service';
 import {FormControl,FormGroup,Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-tickets',
@@ -11,7 +13,7 @@ import {FormControl,FormGroup,Validators} from '@angular/forms';
 })
 export class TicketsComponent implements OnInit {
 
-  constructor(private ticketsService:TicketsService) { }
+  constructor(private ticketsService:TicketsService,public router:Router,public location: Location) { }
   currentCompanyName:string;
   currentEmailId:string;
   ticketsArray: any[] = [];
@@ -91,6 +93,13 @@ export class TicketsComponent implements OnInit {
 
   get ComplaintStatus(){
     return this.ticketform.get('complaintStatus');
+  }
+
+  refresh(): void {
+    this.router.navigateByUrl("/home", { skipLocationChange: true }).then(() => {
+      console.log(decodeURI(this.location.path()));
+      this.router.navigate([decodeURI(this.location.path())]);
+    });
   }
 
 }

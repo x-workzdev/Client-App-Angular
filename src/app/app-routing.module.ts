@@ -10,7 +10,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 
 const routes: Route[] = [
   {path:'', redirectTo:'/login', pathMatch:'full'},
-  //{path:'home',component:HomeComponent},
+  {path:'home',component:HomeComponent},
   {path:'login', component:LoginComponent},
   {path:'createTicket', component:CreateTicketComponent},
   {path : 'profile',component : ProfileComponent},
